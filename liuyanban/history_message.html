@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史留言板</title>
+    <style>
+        /* 基本页面样式 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('shz.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* 留言板容器样式 */
+        .message-board {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .message-board h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* 留言项容器样式 */
+        .messages {
+            max-height: 400px;
+            overflow: hidden;
+            position: relative;
+            animation: scrollMessages 20s linear infinite;
+        }
+
+        /* 留言项样式 */
+        .message {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            color: #333;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-out;
+            opacity: 0;
+            animation-delay: 2s;
+        }
+
+        /* 留言时间和用户名 */
+        .message .username {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .message .time {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* 向上滚动的动画 */
+        @keyframes scrollMessages {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        /* 留言项出现的动画 */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 按钮样式 */
+        button {
+            background-color: #4CAF50;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* 响应式布局 */
+        @media (max-width: 768px) {
+            .message-board {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message-board">
+        <h2>历史留言板</h2>
+        <div class="messages" id="messages">
+            <!-- 动态加载的留言内容 -->
+        </div>
+        <button id="load-more-btn">加载更多留言</button>
+    </div>
+
+    <script>
+        let offset = 0; // 当前加载的留言偏移量
+        const limit = 20; // 每次加载的留言条数
+
+        // 加载留言函数
+        function loadMessages(isLoadMore = false) {
+            const messagesContainer = document.getElementById('messages');
+
+            // 创建 AJAX 请求
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `history_messages.php?offset=${offset}&limit=${limit}`, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const newMessages = document.createElement('div');
+                    newMessages.innerHTML = xhr.responseText;
+                    if (isLoadMore) {
+                        messagesContainer.appendChild(newMessages);
+                    } else {
+                        messagesContainer.innerHTML = newMessages.innerHTML;
+                    }
+
+                    // 更新偏移量
+                    offset += limit;
+
+                    // 如果返回的内容少于限制条数，隐藏加载按钮
+                    if (newMessages.innerHTML.trim() === '') {
+                        document.getElementById('load-more-btn').style.display = 'none';
+                    }
+                } else {
+                    alert('加载留言失败，请稍后再试。');
+                }
+            };
+            xhr.send();
+        }
+
+        // 页面加载时自动获取留言内容
+        window.onload = () => loadMessages();
+
+        // 加载更多留言
+        document.getElementById('load-more-btn').addEventListener('click', () => loadMessages(true));
+    </script>
+
+</body>
+</html>

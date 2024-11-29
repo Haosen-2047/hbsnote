@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>写点什么呢？好好想想</title>
+</head>
+<body>
+    <!-- 导航栏 -->
+    
+
+    <!-- 欢迎语部分 -->
+    <div id="top-banner">
+        我的留言板,也是你的留言板
+        
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/history_message.html">历史留言</a></li>
+            <li><a href="/Manage_message.html">管理留言</a></li>
+            <li><a href="logout.php">退出登录</a></li>
+            <li><a href="/change_password.html">修改密码</a></li>
+        </ul>
+    </nav>
+
+    <!-- 布局容器 -->
+    <div class="container">
+        <!-- 留言板部分 -->
+        <div class="message-board">
+            <h2>发布留言</h2>
+            <form action="process.php" id="message-form" method="post">
+
+                <label for="message">留言内容:</label>
+                <textarea id="message" name="message" placeholder="请输入留言内容" required></textarea>
+
+                <button type="submit">提交留言</button>
+                <div id="loading-spinner" style="display: none;">正在提交...</div>
+            </form>
+        </div>
+
+        <div class="message-management" id="message-management" style="display: none;">
+    <h2>管理留言</h2>
+    <div id="manage-messages"></div>
+</div>
+
+
+
+       <!-- 留言显示区域 -->
+<div class="messages" id="messages">
+    <a href="load_message.php"><h2>最新留言</h2></a>
+</div>
+    </div>
+    <script src="message_board.js"></script>
+</body>
+</html>

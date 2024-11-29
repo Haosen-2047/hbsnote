@@ -1,0 +1,207 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url(shz.jpg) no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    color: #333;
+}
+
+h1, h2 {
+    margin: 0;
+    color: #4CAF50;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    color: #666;
+}
+
+/* 顶部欢迎语样式 */
+#top-banner {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 导航栏样式 */
+.navbar {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;    /* 垂直居中 */
+    background-color: #333; /* 背景颜色 */
+    padding: 10px 0;
+    margin-top: 10px;
+    border-radius: 5px;     /* 圆角边框 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;       /* 去掉列表项默认样式 */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 0 15px;         /* 列表项的水平间距 */
+}
+
+.navbar a {
+    text-decoration: none;  /* 去掉默认链接下划线 */
+    color: white;           /* 链接字体颜色 */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 16px;      /* 内边距，增加点击区域 */
+    border-radius: 5px;     /* 圆角效果 */
+    transition: background-color 0.3s ease; /* 动态背景颜色效果 */
+}
+
+.navbar a:hover {
+    background-color: #555; /* 鼠标悬停时背景颜色 */
+}
+
+/* 主容器 */
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* 留言板样式 */
+.message-board {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.message-board h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.message-board form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message-board label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.message-board input, .message-board textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.message-board textarea {
+    resize: none;
+    min-height: 100px;
+}
+
+.message-board button {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.message-board button:hover {
+    background-color: #45a049;
+}
+
+/* 留言显示区域 */
+ /* 留言显示区域 */
+ .messages {
+    width: 100%;
+    flex: 1;
+    background: rgba(255, 255, 255, 0.6); /* 半透明背景 */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影 */
+    padding: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    display: block; /* 确保是块级元素 */
+    position: relative; /* 确保不会被其他元素覆盖 */
+    background-image: url('shz.jpg'); /* 背景图片 */
+    background-size: cover; /* 背景图像完全覆盖 */
+    background-position: center center; /* 背景图居中显示 */
+}
+
+/* 留言板透明层（可选） */
+.message-board {
+    width: 100%;
+    background:rgba(255, 255, 255, 0.1) url('shz.jpg') no-repeat center center fixed;
+    background-size: cover;
+    border-radius: 10px;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #f44336; /* 红色背景 */
+    color: white; /* 白色文字 */
+    padding: 10px 20px; /* 内边距 */
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* 调整按钮的位置 */
+}
+
+.delete-btn:hover {
+    background-color: #e53935; /* 悬浮时背景变深 */
+}
+
+
+.messages h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.messages p {
+    background: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+}
+
+.messages .username {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.messages .time {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+}

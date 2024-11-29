@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>留言板管理</title>
+    <style>
+        /* 基础页面样式 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        /* 顶部导航栏样式 */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background: #4CAF50;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ddd;
+        }
+
+        /* 留言管理区域样式 */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .message {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">管理留言</a></li> <!-- 添加链接到留言管理页面 -->
+            <li><a href="logout.php">退出登录</a></li>
+        </ul>
+    </nav>
+
+    <!-- 留言管理容器 -->
+    <div class="container">
+        <h2>我的留言管理</h2>
+        <div id="message-list">
+            <!-- 动态加载留言 -->
+        </div>
+    </div>
+
+    <script>
+        // 加载用户的留言
+        function loadUserMessages() {
+            const messageList = document.getElementById('message-list');
+
+            // 使用 AJAX 向服务器请求用户的留言数据
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'load_message.php', true); // 请求 PHP 文件
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // 成功返回数据时，将留言插入页面
+                    messageList.innerHTML = xhr.responseText;
+                } else {
+                    // 如果请求失败，显示错误信息
+                    messageList.innerHTML = '<p class="empty-message">加载留言失败，请稍后再试。</p>';
+                }
+            };
+
+            xhr.onerror = function () {
+                // 网络错误处理
+                messageList.innerHTML = '<p class="empty-message">网络错误，请稍后重试。</p>';
+            };
+
+            xhr.send(); // 发送请求
+        }
+
+        // 删除留言
+        function deleteMessage(messageId) {
+            if (!confirm('确定要删除这条留言吗？')) return; // 确认提示框
+
+            // 使用 AJAX 发送删除请求
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'delete_message.php', true); // 请求删除留言的 PHP 文件
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // 如果删除成功，重新加载留言
+                    alert('留言删除成功！');
+                    loadUserMessages();
+                } else {
+                    alert('删除失败，请稍后再试。');
+                }
+            };
+
+            xhr.onerror = function () {
+                alert('网络错误，无法删除留言。');
+            };
+
+            // 发送删除请求，附带留言 ID
+            xhr.send('message_id=' + messageId);
+        }
+
+        // 页面加载时自动加载留言
+        window.onload = loadUserMessages;
+    </script>
+</body>
+</html>

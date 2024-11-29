@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<link rel="stylesheet" href="style11.css">
+<head>
+<meta charset="utf-8">
+<title>登录</title>
+</head>
+<div id="top-banner">
+    我的留言板,也是你的留言板
+</div>
+<body>
+	<h1>欢迎来到昊斌的第一世界，有什么对我说的都可以记录在这里哟~</h1>
+    <div class="login-container">
+        <h2>登录留言板</h2>
+        <form id="login-form" action="login.php" method="post">
+            <div class="input-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" required 
+                title="密码或用户名错误">
+            </div>
+            <div class="input-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">登录</button>
+            <p id="error-message" class="error-message"></p>
+        </form>
+        <p>没有账号？<a href="register.html" >立即注册</a></p>
+    </div>
+
+</body>
+ <!-- <script>
+    function login(event){
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        if (username === correctUsername && password === correctPassword){
+            window.location.href = '欢迎来到昊斌的世界.html';//主页url
+        }else{
+            alert('密码或用户名错误')//设置alert弹窗提醒
+        }
+    }
+
+</script>  -->
+<!-- <script src="css.js"></script> -->
+	
+</html>
